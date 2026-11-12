@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXO — O Código do Conhecimento</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#243b72,#101326 65%);color:#f7f8ff;font-family:system-ui,Arial,sans-serif;display:grid;place-items:center;padding:18px}
+main{width:min(100%,620px)}.top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:700;margin-bottom:14px}
+.card{background:#ffffff12;border:1px solid #ffffff30;border-radius:20px;padding:20px;margin:12px 0;box-shadow:0 12px 35px #0003}
+.hero{text-align:center}.logo{font-size:54px}.hero h1{font-size:38px;letter-spacing:5px;margin:4px}.sub{color:#b9c9ff;letter-spacing:2px;font-size:12px}
+#world{color:#b9c9ff;font-size:12px;font-weight:800}#emoji{font-size:48px;text-align:center;margin:12px}
+h2{text-align:center;font-size:21px;line-height:1.4}.hint,.feedback{text-align:center;color:#c9d3f6;font-size:14px}
+.choices{display:grid;gap:10px;margin-top:18px}.choice,button{border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer}.choice{background:#f4f5ff;color:#17203c;text-align:left}.choice:disabled{opacity:.8}.choice.correct{outline:3px solid #3ee08b}.choice.wrong{outline:3px solid #ff7777}
+.primary{width:100%;background:#8d78ff;color:white;margin-top:14px}.stats{display:flex;justify-content:space-between;gap:8px;font-size:14px}.bar{height:8px;background:#ffffff25;border-radius:9px;overflow:hidden;margin-top:12px}.bar div{height:100%;background:#a99aff;width:20%;transition:.3s}
+#end{display:none;text-align:center}.small{color:#b9c9ff;font-size:12px;text-align:center}
+</style></head>
+<body><main>
+<div class="top"><span>💎 Fragmentos: <b id="points">0</b></span><span>❤️ Energia: <b id="energy">3</b></span><span>🌟 Missão <b id="level">1</b>/5</span></div>
+<section class="card hero"><div class="logo">🌌</div><h1>NEXO</h1><div class="sub">O CÓDIGO DO CONHECIMENTO</div><p id="story">O VAZIO está apagando o conhecimento! Recupere os fragmentos e salve a cidade perdida.</p></section>
+<section class="card" id="game"><div class="stats"><b id="world">MUNDO 01 · NÚMEROS</b><span id="mission">Desafio 1/5</span></div><div class="bar"><div id="progress"></div></div><div id="emoji">🌉</div><h2 id="question"></h2><p class="hint" id="hint"></p><div class="choices" id="choices"></div><p class="feedback" id="feedback" aria-live="polite"></p><button class="primary" id="next" hidden>Avançar ➜</button></section>
+<section class="card" id="end"><div style="font-size:55px">🏆</div><h2>Missão concluída!</h2><p id="result"></p><button class="primary" id="restart">Jogar novamente</button></section>
+<p class="small">NEXO • Aprender é desbloquear novos mundos.</p>
+</main>
+<script>
+const missions=[
+{w:'MUNDO 01 · NÚMEROS',e:'🌉',q:'Uma ponte tem 3 partes de 4 metros cada. Qual é o comprimento total?',h:'Multiplique o número de partes pelo comprimento de cada parte.',a:['12 metros','7 metros','9 metros'],c:0,x:'3 × 4 = 12 metros. A multiplicação calcula medidas repetidas.'},
+{w:'MUNDO 02 · VIDA',e:'🌱',q:'Uma planta precisa de qual fonte de energia para realizar fotossíntese?',h:'Pense no que vem do céu e ilumina as plantas.',a:['Areia','Luz solar','Pedras'],c:1,x:'A luz solar fornece energia para a fotossíntese.'},
+{w:'MUNDO 03 · PALAVRAS',e:'📜',q:'O explorador estava “exausto”. O que significa essa palavra?',h:'Escolha uma palavra de sentido semelhante.',a:['Muito cansado','Muito feliz','Muito assustado'],c:0,x:'Exausto significa extremamente cansado.'},
+{w:'MUNDO 04 · TERRA',e:'🧭',q:'Qual oceano separa o Brasil de grande parte da costa da África?',h:'Pense no oceano que banha a costa leste do Brasil.',a:['Pacífico','Índico','Atlântico'],c:2,x:'O Oceano Atlântico fica entre a América do Sul e a África.'},
+{w:'MUNDO 05 · LÓGICA',e:'⚡',q:'Complete a sequência: 2, 4, 8, 16... Qual é o próximo número?',h:'Observe o que acontece de um número para o seguinte.',a:['24','32','30'],c:1,x:'Cada número é multiplicado por 2: 16 × 2 = 32.'}
+];
+let i=0,points=0,energy=3,locked=false;
+const $=id=>document.getElementById(id);
+function update(){$('points').textContent=points;$('energy').textContent=energy;$('level').textContent=i+1}
+function render(){locked=false;let m=missions[i];$('world').textContent=m.w;$('mission').textContent=`Desafio ${i+1}/5`;$('progress').style.width=((i+1)*20)+'%';$('emoji').textContent=m.e;$('question').textContent=m.q;$('hint').textContent=m.h;$('feedback').textContent='';$('next').hidden=true;$('choices').innerHTML='';m.a.forEach((a,j)=>{let b=document.createElement('button');b.className='choice';b.textContent=a;b.onclick=()=>answer(j,b);$('choices').appendChild(b)});update()}
+function answer(j,b){if(locked)return;locked=true;let m=missions[i];[...$('choices').children].forEach(x=>x.disabled=true);if(j===m.c){points+=20;b.classList.add('correct');$('feedback').textContent='✨ Correto! +20 fragmentos. '+m.x}else{energy=Math.max(0,energy-1);b.classList.add('wrong');$('choices').children[m.c].classList.add('correct');$('feedback').textContent='💡 A resposta certa é '+m.a[m.c]+'. '+m.x}update();$('next').hidden=false;$('next').textContent=i===4?'Concluir aventura 🏆':'Avançar ➜'}
+$('next').onclick=()=>{if(i<4){i++;render()}else{$('game').style.display='none';$('end').style.display='block';$('result').textContent=`Você recuperou ${points} fragmentos e terminou com ${energy} energias. ${points===100?'Você é um Guardião do Conhecimento!':'Continue treinando para recuperar todos os fragmentos!'}`}}
+$('restart').onclick=()=>{i=0;points=0;energy=3;$('game').style.display='block';$('end').style.display='none';render()};render();
+</script></body></html>
