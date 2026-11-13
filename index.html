@@ -94,4 +94,87 @@ $('restart').onclick=()=>{i=0;points=0;energy=3;$('game').style.display='block';
   </div>
   <p>🌟 Juntos, vamos salvar o mundo com conhecimento!</p>
 </div>
+ 
+<style>
+#nexo-intro {
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  color:white;
+  font-family:Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% 35%,#246bc9,#10133d 65%,#080b20);
+}
+#nexo-intro h1 {
+  font-size:42px;
+  color:#71dcff;
+  text-shadow:0 0 20px #00aaff;
+  margin:5px;
+}
+#nexo-intro .heroes {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:25px;
+  margin:25px;
+}
+#nexo-intro .hero {
+  font-size:85px;
+  filter:drop-shadow(0 12px 12px #0009);
+  animation:nexoFloat 2s ease-in-out infinite;
+}
+#nexo-intro .robot {
+  animation-delay:.5s;
+}
+#nexo-intro button {
+  border:2px solid #8beaff;
+  border-radius:40px;
+  padding:16px 48px;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#087cff,#713cff);
+  box-shadow:0 7px 0 #172b80,0 0 25px #39bfff;
+  cursor:pointer;
+}
+#nexo-intro button:active {
+  transform:translateY(5px);
+  box-shadow:0 2px 0 #172b80;
+}
+@keyframes nexoFloat {
+  0%,100% {transform:translateY(0) rotate(-3deg)}
+  50% {transform:translateY(-15px) rotate(3deg)}
+}
+</style>
+
+<div id="nexo-intro">
+  <h1>🌟 NEXO 🌟</h1>
+  <p>O CÓDIGO DO CONHECIMENTO</p>
+
+  <div class="heroes">
+    <div>
+      <div class="hero">🦸🏻‍♂️</div>
+      <strong>KAEL</strong>
+    </div>
+    <div>
+      <div class="hero robot">🤖</div>
+      <strong>ZIPP</strong>
+    </div>
+  </div>
+
+  <h2>Uma aventura começa agora!</h2>
+  <p>Aprenda, descubra e salve os mundos!</p>
+
+  <button onclick="document.getElementById('nexo-intro').remove()">
+    🎮 JOGAR
+  </button>
+
+  <p>⚡ Prepare-se para a aventura!</p>
+</div>
 </body></html>
