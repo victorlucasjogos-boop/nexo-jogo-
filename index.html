@@ -76,7 +76,16 @@ $('restart').onclick=()=>{i=0;points=0;energy=3;$('game').style.display='block';
   .nexo-heroes p {
     line-height: 1.5;
   }
-</style>
+.nexo-heroes .figura.comemorar {
+  animation: nexoComemorar 0.7s ease-in-out;
+}
+
+@keyframes nexoComemorar {
+  0% { transform: scale(1) rotate(0); }
+  30% { transform: scale(1.4) rotate(-12deg); }
+  60% { transform: scale(1.4) rotate(12deg); }
+  100% { transform: scale(1) rotate(0); }
+}</style>
 
 <div class="nexo-heroes">
   <h2>🚀 Conheça nossos heróis!</h2>
