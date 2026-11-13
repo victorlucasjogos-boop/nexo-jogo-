@@ -36,4 +36,62 @@ function render(){locked=false;let m=missions[i];$('world').textContent=m.w;$('m
 function answer(j,b){if(locked)return;locked=true;let m=missions[i];[...$('choices').children].forEach(x=>x.disabled=true);if(j===m.c){points+=20;b.classList.add('correct');$('feedback').textContent='✨ Correto! +20 fragmentos. '+m.x}else{energy=Math.max(0,energy-1);b.classList.add('wrong');$('choices').children[m.c].classList.add('correct');$('feedback').textContent='💡 A resposta certa é '+m.a[m.c]+'. '+m.x}update();$('next').hidden=false;$('next').textContent=i===4?'Concluir aventura 🏆':'Avançar ➜'}
 $('next').onclick=()=>{if(i<4){i++;render()}else{$('game').style.display='none';$('end').style.display='block';$('result').textContent=`Você recuperou ${points} fragmentos e terminou com ${energy} energias. ${points===100?'Você é um Guardião do Conhecimento!':'Continue treinando para recuperar todos os fragmentos!'}`}}
 $('restart').onclick=()=>{i=0;points=0;energy=3;$('game').style.display='block';$('end').style.display='none';render()};render();
-</script></body></html>
+</script> 
+<style>
+  .nexo-heroes {
+    margin: 20px auto;
+    padding: 22px;
+    max-width: 600px;
+    text-align: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #101c50, #174f91, #512c91);
+    border: 2px solid #48baff;
+    border-radius: 24px;
+    box-shadow: 0 0 25px #168cff66;
+  }
+  .nexo-heroes h2 {
+    color: #7ee7ff;
+    font-size: 26px;
+  }
+  .nexo-dupla {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .nexo-personagem {
+    padding: 12px;
+    min-width: 110px;
+  }
+  .nexo-personagem .figura {
+    font-size: 65px;
+    filter: drop-shadow(0 0 12px #64caff);
+  }
+  .nexo-personagem strong {
+    display: block;
+    font-size: 20px;
+    color: #ffe477;
+  }
+  .nexo-heroes p {
+    line-height: 1.5;
+  }
+</style>
+
+<div class="nexo-heroes">
+  <h2>🚀 Conheça nossos heróis!</h2>
+  <div class="nexo-dupla">
+    <div class="nexo-personagem">
+      <div class="figura">🦸🏻‍♂️</div>
+      <strong>KAEL</strong>
+      <p>Guardião do Conhecimento</p>
+    </div>
+    <div class="nexo-personagem">
+      <div class="figura">🤖</div>
+      <strong>ZIPP</strong>
+      <p>Robô companheiro</p>
+    </div>
+  </div>
+  <p>🌟 Juntos, vamos salvar o mundo com conhecimento!</p>
+</div>
+</body></html>
